@@ -1,4 +1,4 @@
-# My Project
+# Oynama Ulen
 
 This project is a web application (soon in mobile) built with Vite, React, Zustand, Tailwind CSS, and Yarn. It includes state management with Zustand and styling with Tailwind CSS.
 
