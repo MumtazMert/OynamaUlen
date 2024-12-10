@@ -1,77 +1,76 @@
-# Node modules
+
 node_modules/
 
-# Logs
+
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Dependency directories
+
 /node_modules
 /bower_components
 
-# Build directories
+
 /dist
 /build
 
-# IDE files
+
 .idea/
 .vscode/
 
-# Environment variables
+
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# MacOS files
-.DS_Store
 
-# Windows files
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
 
-# Yarn Integrity file
+
+
+
 .yarn-integrity
 
-# Vite build output
+
 .vite
 dist/
 
-# Prettier cache
+
 .prettiercache
 
-# Coverage directory used by tools like istanbul
+
 coverage/
 
-# TypeScript cache
+
 *.tsbuildinfo
 
-# Optional npm cache directory
+
 .npm
 
-# Optional eslint cache
+
 .eslintcache
 
-# Optional stylelint cache
+
 .stylelintcache
 
-# Optional REPL history
+
 .node_repl_history
 
-# Output of 'npm pack'
 *.tgz
 
-# Yarn v2
+
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
 
-# Tailwind CSS
+
 tailwind.config.js
+postcss.config.js
+prettiercache
+vite.config.js
+yarn.lock
+eslint.config.js
