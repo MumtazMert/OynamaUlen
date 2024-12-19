@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { broadcast } from './broadcast';
 
 export const gameStatuses = {
    waiting: 'waiting for players',
@@ -32,20 +33,29 @@ export const useStore = create(
          set((state) => {
             state.gameStatus = gameStatuses.ongoing;
             state.currentTurn = state.players[0];
+            broadcast.postMessage({
+               gameStatus: state.gameStatus,
+               currentTurn: state.currentTurn,
+            });
          }),
       restartGame: () =>
          set((state) => {
             Object.assign(state, initialState);
+            broadcast.postMessage({ ...initialState });
          }),
       setPlayer: (player) =>
          set((state) => {
             if (!state.players.includes(player)) {
                state.players.push(player);
+               broadcast.postMessage({ players: [...state.players] });
             }
          }),
       setInputValue: (input) =>
          set((state) => {
             state.currentPlayerInput = input;
+            broadcast.postMessage({
+               currentPlayerInput: state.currentPlayerInput,
+            });
          }),
       setSentences: (sentence) =>
          set((state) => {
@@ -61,17 +71,26 @@ export const useStore = create(
                state.gameResult = {
                   looser: state.currentTurn,
                };
+               broadcast.postMessage(
+                  JSON.parse(
+                     JSON.stringify({
+                        gameStatus: state.gameStatus,
+                        gameResult: state.gameResult,
+                     })
+                  )
+               );
             } else {
                state.sentences.push(sentence);
                state.currentTurn = nextPlayer;
                state.currentPlayerInput = '';
-            }
-         }),
-      setGameStatus: (status) =>
-         set((state) => {
-            state.gameStatus = status;
-            if (status === gameStatuses.ongoing) {
-               state.currentTurn = state.players[0];
+               broadcast.postMessage(
+                  JSON.parse(
+                     JSON.stringify({
+                        sentences: state.sentences,
+                        currentTurn: state.currentTurn,
+                     })
+                  )
+               );
             }
          }),
    }))
