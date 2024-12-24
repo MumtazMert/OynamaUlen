@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useStore } from '../store/store';
+import { broadcastActions } from '../services/broadcast';
 import {
    containerClasses,
    addPlayerButtonClasses,
@@ -10,7 +11,7 @@ import {
 
 const StartPage = () => {
    const [username, setUsername] = useState('');
-   const { setPlayer, startGame, players } = useStore();
+   const { players } = useStore();
 
    const START_GAME = 'Add user to start the game';
    const USER = 'USERNAME';
@@ -20,7 +21,7 @@ const StartPage = () => {
 
    const handleAddPlayer = () => {
       if (username.trim()) {
-         setPlayer(username);
+         broadcastActions.setPlayer(username);
          setUsername('');
       }
    };
@@ -69,7 +70,7 @@ const StartPage = () => {
             <section className="py-8 ">
                <button
                   disabled={players.length < 2}
-                  onClick={startGame}
+                  onClick={broadcastActions.startGame}
                   className={startGameButtonClasses(players)}
                >
                   {START}
