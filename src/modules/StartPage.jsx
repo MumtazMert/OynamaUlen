@@ -8,9 +8,11 @@ import {
    playerListClasses,
    startGameButtonClasses,
 } from '../styles/styles';
+import ErrorAlert from '../components/ErrorAlert';
 
 const StartPage = () => {
    const [username, setUsername] = useState('');
+   const [alertOpen, setAlertOpen] = useState(false);
    const { players } = useStore();
 
    const START_GAME = 'Add user to start the game';
@@ -18,15 +20,22 @@ const StartPage = () => {
    const ADD = '+ Add User';
    const START = "Let's play";
    const PLAYER = 'PLAYERS';
+   const MESSAGE =
+      'The username you have entered is already taken. Please choose a different username.';
 
    const handleAddPlayer = () => {
       if (username.trim()) {
-         broadcastActions.setPlayer(username);
-         setUsername('');
+         if (players.includes(username)) {
+            setAlertOpen(true);
+         } else {
+            broadcastActions.setPlayer(username);
+            setUsername('');
+            setAlertOpen(false);
+         }
       }
    };
 
-   const hangleKeyDown = (e) => {
+   const handleKeyDown = (e) => {
       if (e.key === 'Enter') {
          handleAddPlayer();
       }
@@ -58,9 +67,10 @@ const StartPage = () => {
                type="text"
                value={username}
                onChange={(e) => setUsername(e.target.value)}
-               onKeyDown={hangleKeyDown}
+               onKeyDown={handleKeyDown}
                className={playerNameInputClasses}
             />
+            <ErrorAlert open={alertOpen} message={MESSAGE} />
             <button
                onClick={handleAddPlayer}
                className={addPlayerButtonClasses}
