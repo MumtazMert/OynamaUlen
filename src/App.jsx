@@ -1,9 +1,9 @@
-import SentenceList from './components/SentenceList';
-import GameStatus from './components/GameStatus';
+import SentenceList from './modules/SentenceList';
+import GameStatus from './modules/GameStatus';
 import { useStore, gameStatuses } from './store/store';
-import PlayerSection from './components/PlayerSection';
-import StartPage from './components/StartPage';
-import { PlayerInput } from './components/Playerinput';
+import PlayerSection from './modules/PlayerSection';
+import StartPage from './modules/StartPage';
+import { PlayerInput } from './modules/PlayerInput';
 
 const App = () => {
    const { gameStatus, players, sentences } = useStore();
