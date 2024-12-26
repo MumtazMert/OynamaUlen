@@ -1,12 +1,11 @@
-const PlayerSection = ({ player }) => {
+const PlayerSection = ({ player, color }) => {
    return (
-      <>
-         <div>
-            <h1 className="flex flex-col w-[40%] border-black border-4 p-4">
-               {player}
-            </h1>
-         </div>
-      </>
+      <div
+         className="border-black border-4 rounded-r-3xl my-7"
+         style={{ backgroundColor: color }}
+      >
+         <h1 className="py-4 pl-10">{player}</h1>
+      </div>
    );
 };
 
