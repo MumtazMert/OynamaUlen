@@ -17,13 +17,13 @@ export const PlayerInput = () => {
       [currentTurn]
    );
    return (
-      <div className="flex flex-col w-[40%] border-black border-4 p-4 ml-10">
+      <div className="sticky w-full bg-white p-4">
          <input
             type="text"
             value={currentPlayerInput}
             onChange={(e) => broadcastActions.setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full border-black border-solid border-2 p-2"
+            className="w-[85%] border-black border-solid rounded border-2 p-2"
          />
       </div>
    );
