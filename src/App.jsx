@@ -1,15 +1,20 @@
 import SentenceList from './modules/SentenceList';
 import { useStore, gameStatuses } from './store/store';
-import PlayerSection from './modules/PlayerSection';
+import PlayerSection from './modules/playerSection/PlayerSection';
 import StartPage from './modules/StartPage';
 import { PlayerInput } from './modules/PlayerInput';
 import { usePlayerColors } from './store/hooks/usePlayerColors';
 import { CurrentTurn } from './components/CurrentTurn';
+import { broadcastActions } from './services/broadcast';
+import { useEffect } from 'react';
 
 const App = () => {
    const { gameStatus, players, sentences, currentTurn } = useStore();
    const playerColors = usePlayerColors(players);
 
+   useEffect(() => {
+      broadcastActions.initializeTab();
+   }, []);
    return (
       <>
          {gameStatus === gameStatuses.waiting ? (

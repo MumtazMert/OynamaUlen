@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const StartPage = () => {
    const [username, setUsername] = useState('');
    const [alertOpen, setAlertOpen] = useState(false);
-   const { players, removePlayer } = useStore();
+   const { players, removePlayer, tabId } = useStore();
 
    const START_GAME = 'Add user to start the game';
    const USER = 'USERNAME';
@@ -24,6 +24,10 @@ const StartPage = () => {
    const PLAYER = 'PLAYERS';
    const MESSAGE =
       'The username you have entered is already taken. Please choose a different username.';
+
+   const IsThereAnyUserAssignedToThisTab = players.some(
+      (player) => player.tabId === tabId
+   );
 
    const handleAddPlayer = () => {
       if (username.trim()) {
@@ -57,11 +61,11 @@ const StartPage = () => {
                   <h1 className="text-sm font-bold ">{PLAYER}</h1>
                   <ul>
                      {players.map((player) => (
-                        <li key={player} className={playerListClasses}>
-                           {player}
+                        <li key={player.id} className={playerListClasses}>
+                           {player.name}
                            <IconButton
                               aria-label="delete"
-                              onClick={() => removePlayer(player)}
+                              onClick={() => removePlayer(player.id)}
                               sx={{ color: 'black' }}
                            >
                               <DeleteIcon />
@@ -71,21 +75,25 @@ const StartPage = () => {
                   </ul>
                </>
             )}
-            <h2 className="text-sm font-bold">{USER}</h2>
-            <input
-               type="text"
-               value={username}
-               onChange={(e) => setUsername(e.target.value)}
-               onKeyDown={handleKeyDown}
-               className={playerNameInputClasses}
-            />
-            <ErrorAlert open={alertOpen} message={MESSAGE} />
-            <button
-               onClick={handleAddPlayer}
-               className={addPlayerButtonClasses}
-            >
-               {ADD}
-            </button>
+            {!IsThereAnyUserAssignedToThisTab && (
+               <>
+                  <h2 className="text-sm font-bold">{USER}</h2>
+                  <input
+                     type="text"
+                     value={username}
+                     onChange={(e) => setUsername(e.target.value)}
+                     onKeyDown={handleKeyDown}
+                     className={playerNameInputClasses}
+                  />
+                  <ErrorAlert open={alertOpen} message={MESSAGE} />
+                  <button
+                     onClick={handleAddPlayer}
+                     className={addPlayerButtonClasses}
+                  >
+                     {ADD}
+                  </button>
+               </>
+            )}
             <section className="py-8 ">
                <button
                   disabled={players.length < 2}

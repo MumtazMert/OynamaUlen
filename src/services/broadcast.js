@@ -8,61 +8,91 @@ const boradcastActionTypes = {
    setInputValue: 'setInputValue',
    setSentences: 'setSentences',
    restartGame: 'restartGame',
+   initializeTab: 'initializeTab',
+   getState: 'getState',
 };
-
-const store = useStore.getState();
 
 export const broadcastActions = {
    setPlayer: (player) => {
-      store.setPlayer(player);
+      useStore.getState().setPlayer(player);
       broadcast.postMessage({
          type: boradcastActionTypes.setPlayer,
          payload: player,
       });
    },
    startGame: () => {
-      store.startGame();
+      useStore.getState().startGame();
       broadcast.postMessage({ type: boradcastActionTypes.startGame });
    },
    setInputValue: (input) => {
-      store.setInputValue(input);
+      useStore.getState().setInputValue(input);
       broadcast.postMessage({
          type: boradcastActionTypes.setInputValue,
          payload: input,
       });
    },
    setSentences: (sentence) => {
-      store.setSentences(sentence);
+      useStore.getState().setSentences(sentence);
       broadcast.postMessage({
          type: boradcastActionTypes.setSentences,
          payload: sentence,
       });
    },
    restartGame: () => {
-      store.restartGame();
+      useStore.getState().restartGame();
       broadcast.postMessage({ type: boradcastActionTypes.restartGame });
+   },
+   getState: () => {
+      const store = useStore.getState();
+      broadcast.postMessage({
+         type: boradcastActionTypes.getState,
+         payload: {
+            players: store.players,
+            gameResult: store.gameResult,
+            gameStatus: store.gameStatus,
+            currentTurn: store.currentTurn,
+            currentPlayerInput: store.currentPlayerInput,
+            sentences: store.sentences,
+         },
+      });
+   },
+   initializeTab: () => {
+      broadcast.postMessage({ type: boradcastActionTypes.initializeTab });
    },
 };
 
 const broadcastReducer = (type, payload) => {
+   console.log(type, payload);
    switch (type) {
       case boradcastActionTypes.setPlayer:
-         store.setPlayer(payload);
+         useStore.getState().setPlayer(payload);
          break;
       case boradcastActionTypes.startGame:
-         store.startGame();
+         useStore.getState().startGame();
 
          break;
       case boradcastActionTypes.setInputValue:
-         store.setInputValue(payload);
+         useStore.getState().setInputValue(payload);
 
          break;
       case boradcastActionTypes.setSentences:
-         store.setSentences(payload);
+         useStore.getState().setSentences(payload);
 
          break;
       case boradcastActionTypes.restartGame:
-         store.restartGame();
+         useStore.getState().restartGame();
+
+         break;
+      case boradcastActionTypes.getState: {
+         const tabId = payload.tabId;
+
+         if (tabId !== useStore.getState().tabId) {
+            useStore.getState().setState(payload);
+         }
+         break;
+      }
+      case boradcastActionTypes.initializeTab:
+         broadcastActions.getState();
 
          break;
       default:
