@@ -9,11 +9,13 @@ import {
    startGameButtonClasses,
 } from '../styles/styles';
 import ErrorAlert from '../components/ErrorAlert';
+import IconButton from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StartPage = () => {
    const [username, setUsername] = useState('');
    const [alertOpen, setAlertOpen] = useState(false);
-   const { players } = useStore();
+   const { players, removePlayer } = useStore();
 
    const START_GAME = 'Add user to start the game';
    const USER = 'USERNAME';
@@ -43,13 +45,13 @@ const StartPage = () => {
 
    return (
       <div className={containerClasses}>
-         <section className="flex flex-col items-center">
+         <section className="grid justify-center">
             <img src="/logo.svg" alt="logo" className="h-24 w-full mt-6" />
             <h1 className="py-7 font-bold text-lg text-darkBlue-900">
                {START_GAME}
             </h1>
          </section>
-         <div className="flex flex-col px-10 space-y-2.5">
+         <div className="grid grid-flow-row px-10 space-y-2.5">
             {!!players && players.length > 0 && (
                <>
                   <h1 className="text-sm font-bold ">{PLAYER}</h1>
@@ -57,6 +59,13 @@ const StartPage = () => {
                      {players.map((player) => (
                         <li key={player} className={playerListClasses}>
                            {player}
+                           <IconButton
+                              aria-label="delete"
+                              onClick={() => removePlayer(player)}
+                              sx={{ color: 'black' }}
+                           >
+                              <DeleteIcon />
+                           </IconButton>
                         </li>
                      ))}
                   </ul>

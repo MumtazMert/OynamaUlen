@@ -45,6 +45,16 @@ export const useStore = create(
                state.players.push(player);
             }
          }),
+      removePlayer: (player) =>
+         set((state) => {
+            state.players = state.players.filter((p) => p !== player);
+            if (state.currentTurn === player) {
+               state.currentTurn = getNextPlayer(
+                  state.players,
+                  state.currentTurn
+               );
+            }
+         }),
       setInputValue: (input) =>
          set((state) => {
             state.currentPlayerInput = input;
