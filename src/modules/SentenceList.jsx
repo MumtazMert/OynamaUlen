@@ -1,6 +1,6 @@
 import { useStore } from '../store/store';
 
-const SentenceList = ({ playerColors }) => {
+const SentenceList = () => {
    const { sentences } = useStore();
 
    return (
@@ -10,9 +10,9 @@ const SentenceList = ({ playerColors }) => {
                <li
                   key={index}
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: playerColors[sentence.user] }}
+                  style={{ backgroundColor: sentence.user.color }}
                >
-                  <strong>{sentence.user}:</strong> {sentence.sentence}
+                  <strong>{sentence.user.name}:</strong> {sentence.sentence}
                </li>
             ))}
          </ul>

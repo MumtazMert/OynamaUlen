@@ -3,19 +3,13 @@ import { useStore } from '../store/store';
 import { useCallback } from 'react';
 
 export const PlayerInput = () => {
-   const { currentTurn, currentPlayerInput } = useStore();
+   const { currentPlayerInput } = useStore();
 
-   const handleKeyDown = useCallback(
-      (e) => {
-         if (e.key === 'Enter') {
-            broadcastActions.setSentences({
-               sentence: e.target.value,
-               user: currentTurn,
-            });
-         }
-      },
-      [currentTurn]
-   );
+   const handleKeyDown = useCallback((e) => {
+      if (e.key === 'Enter') {
+         broadcastActions.setSentences(e.target.value);
+      }
+   }, []);
    return (
       <div className="sticky w-full bg-white p-4">
          <input

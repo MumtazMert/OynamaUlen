@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { getRandomColor } from '../utilities/randomColor';
 
 export const gameStatuses = {
    waiting: 'waiting for players',
@@ -19,7 +20,7 @@ const initialState = {
 
 const getNextPlayer = (players, currentTurn) => {
    const currentPlayerIndex = players.findIndex(
-      (player) => player.id === currentTurn
+      (player) => player.id === currentTurn.id
    );
    return players[(currentPlayerIndex + 1) % players.length];
 };
@@ -53,6 +54,7 @@ export const useStore = create(
                   name: player,
                   id: Math.random().toString(36).substring(7),
                   tabId: state.tabId,
+                  color: getRandomColor(),
                };
                state.players.push(newPlayer);
             }
@@ -74,11 +76,13 @@ export const useStore = create(
       setSentences: (sentence) =>
          set((state) => {
             const previousLastLetter =
-               state.sentences[state.sentences.length - 1]?.sentence.slice(-1);
+               state.sentences?.[state.sentences.length - 1]?.sentence.slice(
+                  -1
+               );
             const nextPlayer = getNextPlayer(state.players, state.currentTurn);
             if (
                state.sentences.length > 0 &&
-               !isSentenceValid(sentence.sentence, previousLastLetter)
+               !isSentenceValid(sentence, previousLastLetter)
             ) {
                state.currentPlayerInput = '';
                state.gameStatus = gameStatuses.finished;
@@ -86,7 +90,7 @@ export const useStore = create(
                   looser: state.currentTurn,
                };
             } else {
-               state.sentences.push(sentence);
+               state.sentences.push({ sentence, user: state.currentTurn });
                state.currentTurn = nextPlayer;
                state.currentPlayerInput = '';
             }
