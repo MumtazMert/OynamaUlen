@@ -18,15 +18,15 @@ const App = () => {
          {gameStatus === gameStatuses.waiting ? (
             <StartPage />
          ) : (
-            <div className="grid border-black border-4 rounded-3xl mx-[3%] my-[3%] box-border  overflow-hidden">
+            <div className="grid border-black border-4 rounded-3xl mx-[3%] my-[2%] box-border  overflow-hidden">
                <div className="grid grid-cols-2 space-x-14 items-center px-10 py-10 box-border">
                   <CurrentTurn currentTurn={currentTurn} />
-                  <section className="grid col-end-1 w-[338px] max-h-[720px] border-black border-4 rounded-2xl py-10 pr-10 overflow-auto">
+                  <section className="grid col-end-1 self-start w-[284px] border-black border-4 rounded-2xl py-10 pr-10 overflow-auto shadow-S-button">
                      {players.map((player) => (
                         <PlayerSection key={player.id} player={player} />
                      ))}
                   </section>
-                  <section className="grid grid-rows-[1fr_auto] box-border col-start-1 w-[170%] h-[720px] border-black border-4 rounded-2xl px-10 overflow-auto">
+                  <section className="grid grid-rows-[1fr_auto] box-border col-start-1 w-[190%] h-[720px] border-black border-4 rounded-2xl px-10 overflow-auto shadow-S-button">
                      <SentenceList sentences={sentences} />
                      <PlayerInput />
                   </section>

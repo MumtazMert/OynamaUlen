@@ -6,7 +6,7 @@ const PlayerSection = ({ player }) => {
          className={playerSectionClasses}
          style={{ backgroundColor: player.color }}
       >
-         <h1 className="py-4 pl-10">{player.name}</h1>
+         <h1 className="py-4 pl-10 ">{player.name}</h1>
       </div>
    );
 };
