@@ -1,9 +1,12 @@
-const letters = '89ABCDEF';
+const primaryColors = ['00', 'FF'];
 
 export const getRandomColor = () => {
    let color = '#';
-   for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * letters.length)];
+   for (let i = 0; i < 3; i++) {
+      color += primaryColors[Math.floor(Math.random() * primaryColors.length)];
+   }
+   if (color === '#FFFFFF') {
+      return getRandomColor();
    }
    return color;
 };
