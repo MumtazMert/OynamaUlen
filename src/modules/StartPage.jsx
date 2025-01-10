@@ -28,6 +28,7 @@ const StartPage = () => {
    const IsThereAnyUserAssignedToThisTab = players.some(
       (player) => player.tabId === tabId
    );
+   console.log(IsThereAnyUserAssignedToThisTab);
 
    const handleAddPlayer = () => {
       if (username.trim()) {
