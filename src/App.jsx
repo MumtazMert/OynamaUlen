@@ -18,7 +18,7 @@ const App = () => {
          {gameStatus === gameStatuses.waiting ? (
             <StartPage />
          ) : (
-            <div className="grid border-black border-4 rounded-3xl mx-[3%] my-[2%] box-border  overflow-hidden">
+            <div className="grid border-black border-4 rounded-3xl mx-[3%] my-[1%] box-border  overflow-hidden">
                <div className="grid grid-cols-2 space-x-14 items-center px-10 py-10 box-border">
                   <CurrentTurn currentTurn={currentTurn} />
                   <section className="grid col-end-1 self-start w-[284px] border-black border-4 rounded-2xl py-10 pr-10 overflow-auto shadow-S-button">
