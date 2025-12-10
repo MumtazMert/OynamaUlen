@@ -1,0 +1,26 @@
+{
+  "date": "2025-12-11",
+  "featuredImage": "",
+  "isFeatured": "",
+  "showAuthor": "",
+  "status": "draft",
+  "translations": {
+    "en": {
+      "title": "title",
+      "excerpt": "",
+      "content": []
+    },
+    "tr": {
+      "title": "",
+      "excerpt": "",
+      "content": []
+    }
+  },
+  "id": "6078c581-7831-41a9-b5ed-0d866ab2bb7b",
+  "_meta": {
+    "createdAt": "2025-12-11T00:53:52.132Z",
+    "updatedAt": "2025-12-11T00:53:52.132Z",
+    "createdBy": "mumtazmert@gmail.com",
+    "updatedBy": "mumtazmert@gmail.com"
+  }
+}
