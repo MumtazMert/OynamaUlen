@@ -11,6 +11,8 @@ const boradcastActionTypes = {
    initializeTab: 'initializeTab',
    getState: 'getState',
 };
+  
+
 
 export const broadcastActions = {
    setPlayer: (player) => {
